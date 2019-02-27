@@ -2,17 +2,12 @@ import os, ntpath as np
 class inputdata:
     # print('huy')
     def __init__(self, path):
-        self.ampl = list()
-        self.time = list()
+        self.ampl = dict()
         print('start path = {}'.format(path))
         with open(path) as file:
             for i in file:
                 try:
-                    self.ampl.append(float(i.split(',')[0]))
-                except ValueError:
-                    pass
-                try:
-                    self.time.append(float(i.split(',')[1]))
+                    self.ampl[float(i.split(',')[1])] = float(i.split(',')[0])
                 except ValueError:
                     pass
 
@@ -25,7 +20,7 @@ class Phase:
         val = path.split('.')
         num = int(val[0][-1]) % 2
         if num == 0:
-            return './'+ val[0][:len(val[0])-1] + str(int(val[0][-1])-1) + '.' + val[1]
+            return './' + val[0][:len(val[0])-1] + str(int(val[0][-1])-1) + '.' + val[1]
         else:
             return './' + val[0][:len(val[0]) - 1] + str(int(val[0][-1]) + 1) + '.' + val[1]
 def folderprocess(path: str):

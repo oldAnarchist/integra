@@ -16,6 +16,13 @@ class Phase:
     def __init__(self, path):
         self.sin = inputdata(path)
         self.cos = inputdata(self.get_pair_path(np.basename(path)))
+    def getarctg(self):
+        for i in self.sin.ampl.keys():
+            try:
+                tg = self.sin.ampl[i] / self.cos.ampl[i]
+                print('tg = {}'.format(str(tg)))
+            except:
+                print('нуебана')
     def get_pair_path(self, path):
         val = path.split('.')
         num = int(val[0][-1]) % 2
@@ -32,14 +39,5 @@ def folderprocess(path: str):
 # file1 = inputdata('./exp2-1_1.csv')
 # file2 = inputdata('./exp2-1_2.csv')
 phase1 = Phase('./exp2-1_1.csv')
-# for i in file2.ampl:
-#     print(i)
-
-
-
-
-# phase1 = faza('111')
-
-# phase1.sin = file1
-# phase1.cos = file2
-
+phase1.getarctg()
+# for i in phase1.ampl:

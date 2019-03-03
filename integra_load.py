@@ -1,4 +1,4 @@
-import os, ntpath as np
+import os, ntpath as np, math
 class inputdata:
     # print('huy')
     def __init__(self, path):
@@ -16,13 +16,19 @@ class Phase:
     def __init__(self, path):
         self.sin = inputdata(path)
         self.cos = inputdata(self.get_pair_path(np.basename(path)))
+
+    # kim В этом методе будет вычисляться арктангенс
     def getarctg(self):
-        for i in self.sin.ampl.keys():
+        for i in self.sin.ampl.keys(): # Цикл по всем синусам
             try:
-                tg = self.sin.ampl[i] / self.cos.ampl[i]
+                tg = self.sin.ampl[i] / self.cos.ampl[i]  # пытаемся разделить синус на соответствующий ему косинус
                 print('tg = {}'.format(str(tg)))
-            except:
+                arctg = math.atan(tg) # считаем арктангенс
+                print('arctg = {}'.format(arctg))
+                self.arctg[i] = arctg # сгружаем полученный arctg в новый словарь (экземпляр класса фаза)
+            except ValueError:
                 print('нуебана')
+
     def get_pair_path(self, path):
         val = path.split('.')
         num = int(val[0][-1]) % 2
